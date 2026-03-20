@@ -1,7 +1,7 @@
 // DOM Elements
 const btnRefresh = document.getElementById('btn-refresh-data');
 const syncStatus = document.getElementById('sync-status');
-const btnMasterPrompt = document.getElementById('btn-master-prompt');
+const btnTranslate = document.getElementById('btn-translate');
 
 // Tab/View Elements
 const cardGads = document.getElementById('card-gads');
@@ -332,58 +332,43 @@ btnRefresh.addEventListener('click', () => {
     fetchTelemetry();
 });
 
-btnMasterPrompt.addEventListener('click', () => {
-    // Build a lightweight skeleton schema so the AI doesn't choke on a massive history array
-    const skeleton = {
-        g_ads: currentJSONData ? currentJSONData.g_ads : {},
-        stripe: currentJSONData ? currentJSONData.stripe : {},
-        generator: [{
-            campaign_name: "Example Campaign",
-            headlines_15: ["HL1", "HL2", "... (provide 15)"],
-            long_headlines_10: ["LH1", "... (provide 10)"],
-            descriptions_5: ["Desc1", "... (provide 5)"],
-            search_themes_bulk: "keyword1, keyword2... (provide 50)",
-            interests: "interest 1, interest 2... (provide 15)",
-            images: { horizontal: ["url1"], vertical: ["url1"], square: ["url1"] }
-        }],
-        competitors: [{
-            name: "Competitor Name",
-            platform: "Ad Platform",
-            headlines: ["Ad Headline 1", "Ad Headline 2"],
-            image_url: "https://placehold.co/600x400"
-        }],
-        todays_trends: {
-            topics: ["Trend 1", "Trend 2", "Trend 3"],
-            suggested_angle: {
-                headline: "A catchy headline based on trends",
-                description: "Why this angle works and how to execute it"
+window.googleTranslateElementInit = function() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en', 
+        includedLanguages: 'zh-CN', 
+        autoDisplay: false
+    }, 'google_translate_element');
+};
+
+btnTranslate.addEventListener('click', () => {
+    // Inject script if not present
+    if (!document.getElementById('gtranslate-script')) {
+        const script = document.createElement('script');
+        script.id = 'gtranslate-script';
+        script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        document.body.appendChild(script);
+        
+        btnTranslate.innerHTML = '正在翻译 / Translating...';
+        
+        let attempts = 0;
+        const checkExist = setInterval(function() {
+            const select = document.querySelector('.goog-te-combo');
+            if (select) {
+                clearInterval(checkExist);
+                select.value = 'zh-CN';
+                select.dispatchEvent(new Event('change'));
+                btnTranslate.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 已翻译 / Translated';
             }
-        },
-        archived_memory: "HTML string containing past campaigns and user research insights."
-    };
-
-    const rawJson = JSON.stringify(skeleton, null, 2);
-    const masterPrompt = `Here is the required JSON structure for my Mission Control dashboard:
-
-\`\`\`json
-${rawJson}
-\`\`\`
-
-Based on any fresh input, data, or context I provided you above, please do the following:
-1. Update existing metrics inside "g_ads" or "stripe" to reflect my latest exact values (or zero them out if inactive).
-2. Format my "g_ads.campaigns" array based on any active campaigns provided.
-3. Replace the "generator" array with 10 highly-converting Google Ads campaign strategies for Seele AI.
-4. Replace the "competitors" array with intelligence on 3-5 direct competitors.
-5. Populate "todays_trends" with daily trending topics about AI + gaming relevant to Seele AI, and suggest a creative G ads campaign angle based on it.
-6. Populate "archived_memory" with all already suggested/tried G ads campaigns, competitor ad strategies, and user research from Stripe/Seele admin.
-
-IMPORTANT: You must return ONLY ONE full, valid raw JSON object exactly matching the keys "g_ads", "stripe", "generator", "competitors", "todays_trends", and "archived_memory". Do not output markdown codeblock wrapping around the JSON, just raw text.`;
-
-    navigator.clipboard.writeText(masterPrompt).then(() => {
-        const ogHTML = btnMasterPrompt.innerHTML;
-        btnMasterPrompt.innerHTML = 'Copied to Clipboard!';
-        setTimeout(() => { btnMasterPrompt.innerHTML = ogHTML; }, 2500);
-    });
+            attempts++;
+            if (attempts > 50) clearInterval(checkExist); // Timeout after 5s
+        }, 100);
+    } else {
+        const select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = 'zh-CN';
+            select.dispatchEvent(new Event('change'));
+        }
+    }
 });
 
 window.addEventListener('DOMContentLoaded', fetchTelemetry);

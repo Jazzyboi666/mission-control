@@ -116,11 +116,12 @@
                 <div class="nav-brand">Mission Overview</div>
                 <div class="nav-actions">
                     <span class="last-updated" id="sync-status">Scanning data.json...</span>
-                    <!-- Master AI Prompt Copy -->
-                    <button class="btn btn-secondary glow-btn" id="btn-master-prompt" style="border-color: #ffd6a5; color: #ffd6a5; background: rgba(255, 214, 165, 0.05);">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                        Copy Master AI Prompt
+                    <!-- Translate Button -->
+                    <button class="btn btn-secondary glow-btn" id="btn-translate" style="border-color: #a5d6ff; color: #a5d6ff; background: rgba(165, 214, 255, 0.05);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+                        中文 (Translate)
                     </button>
+                    <div id="google_translate_element" style="display:none;"></div>
                     <!-- Trigger to manually refresh from data.json -->
                     <button class="btn btn-primary glow-btn" id="btn-refresh-data">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
