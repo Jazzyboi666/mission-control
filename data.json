@@ -1,0 +1,68 @@
+{
+  "g_ads": {
+    "spend": "$0.00",
+    "clicks": "0",
+    "ctr": "0.0%",
+    "cpc": "$0.00",
+    "roas": "0.0x",
+    "cpa": "$0.00",
+    "accounts": [
+      {
+        "account_id": "4060466003",
+        "label": "https://www.seeles.ai/"
+      },
+      {
+        "account_id": "8491245927",
+        "label": "active data account"
+      }
+    ],
+    "campaigns": []
+  },
+  "stripe": {
+    "revenue": "$1330.12",
+    "today_revenue": "$1330.12",
+    "today_payment_count": "25",
+    "latest_received_at": "3/19/2026, 15:02:00",
+    "mrr": "$3,200.00",
+    "churn": "1.5%",
+    "customers": "10",
+    "active_subs": "120",
+    "net_volume": "$4,200.00",
+    "disputes": "0"
+  },
+  "generator": [
+    {
+      "campaign_name": "Seele AI - Non-Coders & Creators",
+      "headlines_15": ["Make Your Own 3D Game", "Text to 3D Game Instantly", "Prompt. Play. Share.", "Zero Coding 3D Games", "Your Ideas, Playable Now", "Create Games With Words", "Seele AI Game Engine", "GenAI For Game Dev", "Build Worlds in Seconds", "Type to Create Games", "AI Powered Game Creator", "Unleash Your Imagination", "Fastest Way to Make Games", "No Code Game Studio", "Play Your Prompts"],
+      "long_headlines_10": ["Turn Your Text Prompts Into Fully Playable 3D Games in Seconds", "The World's Fastest AI Game Engine for Non-Coders", "Stop Dreaming, Start Creating Playable 3D Worlds with Seele AI", "No Coding Required: Generate Complete 3D Games Instantly", "Type a Story, Play a Game - Seele AI Makes It Possible", "Unreal Results Without Unreal Engine - Meet Seele AI", "Create, Share, and Play Games Generated Entirely by AI", "Seele AI: The Ultimate Text-to-Game Creation Studio", "Build 3D Multiplayer Games Simply By Describing Them", "From Idea to Executable Reality in Under a Minute"],
+      "descriptions_5": ["Describe your dream game and let Seele AI build a fully playable 3D world instantly.", "Join the revolution of AI-assisted game dev. Zero coding, endless possibilities.", "With Seele AI, you are the director. Type prompts to spawn assets, characters, and logic.", "Stop spending months learning game engines. Create an immersive 3D game today.", "The future of user-generated content is here. Prompt perfectly tailored 3D games."],
+      "search_themes_bulk": "how to make a game without coding, text to game ai, ai game maker, roblox alternative for creators, make 3D game fast, generative ai for games, game dev for absolute beginners, create a game from text prompt, seele ai game engine, generative 3d environments, no code 3d game engine, ai game builder...",
+      "interests": "Game Development, Artificial Intelligence, ChatGPT users, PC Gaming, Unreal Engine, Roblox Creators, Generative Art, Indie Game Dev, Technology Enthusiasts, 3D Modeling",
+      "images": {
+        "horizontal": ["https://placehold.co/1200x628/0a0c10/00f0ff?text=Horizontal+Ad+1", "https://placehold.co/1200x628/0a0c10/00f0ff?text=Horizontal+Ad+2", "https://placehold.co/1200x628/0a0c10/00f0ff?text=Horizontal+Ad+3", "https://placehold.co/1200x628/0a0c10/00f0ff?text=Horizontal+Ad+4", "https://placehold.co/1200x628/0a0c10/00f0ff?text=Horizontal+Ad+5"],
+        "vertical": ["https://placehold.co/1080x1920/0a0c10/00f0ff?text=Vertical+Ad+1", "https://placehold.co/1080x1920/0a0c10/00f0ff?text=Vertical+Ad+2", "https://placehold.co/1080x1920/0a0c10/00f0ff?text=Vertical+Ad+3", "https://placehold.co/1080x1920/0a0c10/00f0ff?text=Vertical+Ad+4", "https://placehold.co/1080x1920/0a0c10/00f0ff?text=Vertical+Ad+5"],
+        "square": ["https://placehold.co/1080x1080/0a0c10/00f0ff?text=Square+Ad+1", "https://placehold.co/1080x1080/0a0c10/00f0ff?text=Square+Ad+2", "https://placehold.co/1080x1080/0a0c10/00f0ff?text=Square+Ad+3", "https://placehold.co/1080x1080/0a0c10/00f0ff?text=Square+Ad+4", "https://placehold.co/1080x1080/0a0c10/00f0ff?text=Square+Ad+5"]
+      }
+    }
+  ],
+  "competitors": [
+    {
+      "name": "Rosebud AI",
+      "platform": "Google Search / Display",
+      "headlines": ["Create Games With AI | Rosebud", "Text-to-Game Creation Studio"],
+      "image_url": "https://placehold.co/600x400/181a20/ff0050?text=Rosebud+Ad+Mockup"
+    },
+    {
+      "name": "Luma AI (Genie)",
+      "platform": "Facebook/Instagram Ads",
+      "headlines": ["Generate 3D Assets Instantly", "The fastest way to build 3D worlds"],
+      "image_url": "https://placehold.co/600x400/181a20/6600ff?text=Luma+Ad+Mockup"
+    },
+    {
+      "name": "Scenario",
+      "platform": "Google Discovery",
+      "headlines": ["Train Custom Game AI Models", "Generate Game Art Consistent to Your Style"],
+      "image_url": "https://placehold.co/600x400/181a20/00ffaa?text=Scenario+Ad+Mockup"
+    }
+  ]
+}

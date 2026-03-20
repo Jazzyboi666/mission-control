@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Left Panel -->
+        <aside class="left-panel">
+            <h1 class="logo glow-text">SYSTEM.<span>CORE</span></h1>
+            
+            <div class="metrics-container">
+                <!-- G Ads Card - Now Clickable -->
+                <div class="glass-card metric-card interactive-card active" id="card-gads">
+                    <div class="card-header">
+                        <div class="icon-wrapper gads-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13.52c0-3.66 3-6.57 6.64-6.52A6.47 6.47 0 0 1 15 13.52c0 3.66-3 6.57-6.64 6.52A6.47 6.47 0 0 1 2 13.52z"/><path d="M19.98 10.48A6.47 6.47 0 0 0 15 13.52a6.47 6.47 0 0 0-4.98 3.04"/><path d="M10 16.56c0 3.66 3 6.57 6.64 6.52A6.47 6.47 0 0 0 22 16.56M15 13.52V22"/></svg>
+                        </div>
+                        <h2>Google Ads</h2>
+                        <span class="status-indicator"></span>
+                    </div>
+                    
+                    <div class="metric-grid">
+                        <div class="metric-item">
+                            <span class="metric-label">Spend</span>
+                            <span class="metric-value gads-color" id="gads-spend">--</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Clicks</span>
+                            <span class="metric-value" id="gads-clicks">--</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">CTR</span>
+                            <span class="metric-value" id="gads-ctr">--</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">CPC</span>
+                            <span class="metric-value" id="gads-cpc">--</span>
+                        </div>
+                    </div>
+                    <div class="card-gradient gads-glow"></div>
+                </div>
+
+                <!-- Stripe Data Card - Now Clickable -->
+                <div class="glass-card metric-card interactive-card" id="card-stripe">
+                    <div class="card-header">
+                        <div class="icon-wrapper stripe-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 7 2.6-2.6c.4-.4.9-.6 1.4-.6h4a2 2 0 0 1 0 4H10"/><rect width="20" height="14" x="2" y="5" rx="2"/></svg>
+                        </div>
+                        <h2>Stripe Revenue</h2>
+                        <span class="status-indicator stripe-status"></span>
+                    </div>
+                    
+                    <div class="metric-grid">
+                        <div class="metric-item">
+                            <span class="metric-label">Today Rev</span>
+                            <span class="metric-value stripe-color" id="stripe-today-rev-sidebar">--</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Total Rev</span>
+                            <span class="metric-value" id="stripe-revenue">--</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">MRR</span>
+                            <span class="metric-value" id="stripe-mrr">--</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">New Cust.</span>
+                            <span class="metric-value" id="stripe-customers">--</span>
+                        </div>
+                    </div>
+                    <div class="card-gradient stripe-glow"></div>
+                </div>
+
+                <!-- Campaign Generator Tab -->
+                <div class="glass-card metric-card interactive-card compact-card" id="card-generator">
+                    <div class="card-header compact-header">
+                        <div class="icon-wrapper gen-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                        </div>
+                        <h2>Campaign Generator</h2>
+                    </div>
+                </div>
+
+                <!-- Competitor Report Tab -->
+                <div class="glass-card metric-card interactive-card compact-card" id="card-competitors">
+                    <div class="card-header compact-header">
+                        <div class="icon-wrapper comp-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                        </div>
+                        <h2>Competitor Report</h2>
+                    </div>
+                </div>
+
+            </div>
+            
+        </aside>
+
+        <!-- Main Dashboard Area -->
+        <main class="main-panel scrollable-main">
+            <header class="top-nav">
+                <div class="nav-brand">Mission Overview</div>
+                <div class="nav-actions">
+                    <span class="last-updated" id="sync-status">Scanning data.json...</span>
+                    <!-- Master AI Prompt Copy -->
+                    <button class="btn btn-secondary glow-btn" id="btn-master-prompt" style="border-color: #ffd6a5; color: #ffd6a5; background: rgba(255, 214, 165, 0.05);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        Copy Master AI Prompt
+                    </button>
+                    <!-- Trigger to manually refresh from data.json -->
+                    <button class="btn btn-primary glow-btn" id="btn-refresh-data">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                        Hard Refresh
+                    </button>
+                </div>
+            </header>
+
+            <!-- EMPTY/OFFLINE VIEW -->
+            <div class="dashboard-content" id="view-empty">
+                <div class="hero-section glass-card">
+                    <div class="hero-content">
+                        <h2 class="glow-text-large" id="hero-title">Control Center Offline</h2>
+                        <p class="subtitle" id="hero-subtitle">Waiting for valid telemetry in data.json file.</p>
+                        
+                        <div class="decorative-grid">
+                            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                            <div class="grid-cell active-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GOOGLE ADS DETAILED VIEW -->
+            <div class="dashboard-content hidden" id="view-gads">
+                <div class="view-header">
+                    <h2>Google Ads Deep Dive</h2>
+                    <p>Detailed breakdown of your acquisition funnel</p>
+                </div>
+                
+                <div class="detailed-layout">
+                    <!-- Top row components -->
+                    <div class="glass-card feature-panel" style="flex: 2;">
+                        <h3>Active Campaigns</h3>
+                        <div class="campaigns-container" id="gads-campaigns-list">
+                            <div class="campaign-item empty-state">Waiting for campaigns data...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card feature-panel side-panel">
+                        <h3>Conversion Breakdown</h3>
+                        <div class="donut-chart-container placeholder-chart" style="min-height: 120px;">
+                            <div class="orb gads-orb" style="width: 80px; height: 80px;"></div>
+                            <div class="orb-details" style="flex-direction: column;">
+                                <div class="detail-row"><span class="dot gads-dot"></span> <span id="gads-roas-display">ROAS: --</span></div>
+                                <div class="detail-row"><span class="dot"></span> <span id="gads-cpa-display">CPA: --</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card feature-panel full-width">
+                        <h3>Active Connected Accounts</h3>
+                        <ul class="account-list" id="gads-accounts-list">
+                            <li class="account-item">Waiting for accounts logic...</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STRIPE DETAILED VIEW -->
+            <div class="dashboard-content hidden" id="view-stripe">
+                <div class="view-header">
+                    <h2>Stripe Financials</h2>
+                    <p>Live revenue streams and cashflow analysis</p>
+                </div>
+
+                <div class="detailed-layout">
+                    <!-- Today's Highlight -->
+                    <div class="glass-card feature-panel full-width highlight-panel">
+                        <div class="highlight-content">
+                            <div>
+                                <h3>Today's Cashflow</h3>
+                                <p class="timestamp" id="stripe-latest-received">Latest Ping: --</p>
+                            </div>
+                            <div class="big-metric-group">
+                                <div class="big-col">
+                                    <span class="mc-label">Revenue Today</span>
+                                    <span class="mc-value stripe-color" id="stripe-today-revenue">--</span>
+                                </div>
+                                <div class="line-divider"></div>
+                                <div class="big-col">
+                                    <span class="mc-label">Daily Payments</span>
+                                    <span class="mc-value" id="stripe-today-payments">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metrics-row">
+                        <div class="glass-card feature-panel mini-panel">
+                            <h4>Active Subs</h4>
+                            <p class="big-num swipe-up" id="stripe-active-subs">--</p>
+                        </div>
+                        <div class="glass-card feature-panel mini-panel">
+                            <h4>Net Volume</h4>
+                            <p class="big-num swipe-up" id="stripe-net-volume">--</p>
+                        </div>
+                        <div class="glass-card feature-panel mini-panel">
+                            <h4>Disputes</h4>
+                            <p class="big-num swipe-up" id="stripe-disputes">--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAMPAIGN GENERATOR VIEW -->
+            <div class="dashboard-content hidden" id="view-generator">
+                <div class="view-header flex-between">
+                    <div>
+                        <h2>Campaign Generator</h2>
+                        <p>AI-Generated Google Ads structures for Seele AI</p>
+                    </div>
+                    <button class="btn btn-secondary prompt-btn" id="btn-copy-gen-prompt">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        Copy Generator Prompt
+                    </button>
+                    <!-- Hidden prompt text -->
+                    <div class="hidden-prompt-text" id="gen-prompt-text" style="display:none;">I need you to generate 10 highly-converting Google Ads campaign ideas for Seele AI (a Text-to-3D play game engine for non-coders and creators). 
+For EACH of the 10 campaigns, please provide exactly:
+- 15 Short Headlines (HL)
+- 10 Long Headlines (LH)
+- 5 Descriptions
+- 50 bulk Search Themes specific to this angle
+- 10-15 Demographic/Interest demographics ONLY choosable in standard Google ads
+- Concept ideas for Images: 5 horizontal, 5 vertical, 5 square (can be placeholder image URLs or text descriptions)
+
+RETURN STRICTLY AS A JSON OBJECT matching this exact structure:
+{
+  "generator": [
+    {
+      "campaign_name": "...",
+      "headlines_15": ["...", "..."],
+      "long_headlines_10": ["..."],
+      "descriptions_5": ["..."],
+      "search_themes_bulk": "keyword1, keyword2, keyword3...",
+      "interests": "interest 1, interest 2...",
+      "images": { "horizontal": ["url1", "url2"], "vertical": ["url1", "url2"], "square": ["url1", "url2"] }
+    }
+  ]
+}</div>
+                </div>
+
+                <div class="generator-layout" id="generator-container">
+                    <div class="glass-card feature-panel empty-state">Waiting for AI Generator payload in data.json...</div>
+                </div>
+            </div>
+
+            <!-- COMPETITOR REPORT VIEW -->
+            <div class="dashboard-content hidden" id="view-competitors">
+                <div class="view-header flex-between">
+                    <div>
+                        <h2>Competitor Report</h2>
+                        <p>Ad intelligence matrix of direct competitors</p>
+                    </div>
+                    <button class="btn btn-secondary prompt-btn" id="btn-copy-comp-prompt">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        Copy Competitor Prompt
+                    </button>
+                    <!-- Hidden prompt text -->
+                    <div class="hidden-prompt-text" id="comp-prompt-text" style="display:none;">Please do a competitor report for Seele AI (Text-to-3D game engine platform). Find 3-5 direct competitors (e.g. Rosebud AI, Luma AI, Scenario, etc).
+For each competitor, provide details on the ads they are running on Google or Facebook, including their headlines, and a placeholder image URL for their ad screenshot (like https://placehold.co/600x400).
+
+RETURN STRICTLY AS A JSON OBJECT matching this exact structure:
+{
+  "competitors": [
+    {
+      "name": "Competitor Name",
+      "platform": "Facebook Ads",
+      "headlines": ["Headline 1", "Headline 2"],
+      "image_url": "https://placehold.co/600x400/181a20/6600ff?text=Competitor+Ad+Screenshot"
+    }
+  ]
+}</div>
+                </div>
+
+                <div class="competitor-grid" id="competitor-container">
+                    <!-- Columns injected here -->
+                    <div class="glass-card feature-panel empty-state">Waiting for Competitor payload in data.json...</div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
