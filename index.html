@@ -47,32 +47,20 @@
                     <div class="card-gradient gads-glow"></div>
                 </div>
 
-                <!-- Stripe Data Card - Now Clickable -->
+                <!-- Ads Revenue Tab -->
                 <div class="glass-card metric-card interactive-card" id="card-stripe">
                     <div class="card-header">
                         <div class="icon-wrapper stripe-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 7 2.6-2.6c.4-.4.9-.6 1.4-.6h4a2 2 0 0 1 0 4H10"/><rect width="20" height="14" x="2" y="5" rx="2"/></svg>
                         </div>
-                        <h2>Stripe Revenue</h2>
+                        <h2>Ads Revenue</h2>
                         <span class="status-indicator stripe-status"></span>
                     </div>
                     
                     <div class="metric-grid">
                         <div class="metric-item">
-                            <span class="metric-label">Today Rev</span>
+                            <span class="metric-label">Camp. Rev Today</span>
                             <span class="metric-value stripe-color" id="stripe-today-rev-sidebar">--</span>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">Total Rev</span>
-                            <span class="metric-value" id="stripe-revenue">--</span>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">MRR</span>
-                            <span class="metric-value" id="stripe-mrr">--</span>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">New Cust.</span>
-                            <span class="metric-value" id="stripe-customers">--</span>
                         </div>
                     </div>
                     <div class="card-gradient stripe-glow"></div>
@@ -95,6 +83,26 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
                         </div>
                         <h2>Competitor Report</h2>
+                    </div>
+                </div>
+
+                <!-- Archived Memory Tab -->
+                <div class="glass-card metric-card interactive-card compact-card" id="card-archived">
+                    <div class="card-header compact-header">
+                        <div class="icon-wrapper comp-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><path d="M14 2v6h6"/><path d="M2 15h10"/><path d="M5 12l-3 3 3 3"/></svg>
+                        </div>
+                        <h2>Archived Memory</h2>
+                    </div>
+                </div>
+
+                <!-- Today's Trends Tab -->
+                <div class="glass-card metric-card interactive-card compact-card" id="card-trends">
+                    <div class="card-header compact-header">
+                        <div class="icon-wrapper comp-icon" style="color: #ffaa00;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                        </div>
+                        <h2 style="color: #ffaa00;">Today's Trends</h2>
                     </div>
                 </div>
 
@@ -172,11 +180,11 @@
                 </div>
             </div>
 
-            <!-- STRIPE DETAILED VIEW -->
+            <!-- ADS REVENUE DETAILED VIEW -->
             <div class="dashboard-content hidden" id="view-stripe">
                 <div class="view-header">
-                    <h2>Stripe Financials</h2>
-                    <p>Live revenue streams and cashflow analysis</p>
+                    <h2>Ads Revenue</h2>
+                    <p>Campaigns that generated profit today</p>
                 </div>
 
                 <div class="detailed-layout">
@@ -184,35 +192,21 @@
                     <div class="glass-card feature-panel full-width highlight-panel">
                         <div class="highlight-content">
                             <div>
-                                <h3>Today's Cashflow</h3>
-                                <p class="timestamp" id="stripe-latest-received">Latest Ping: --</p>
+                                <h3>Total Ads Revenue</h3>
                             </div>
                             <div class="big-metric-group">
                                 <div class="big-col">
-                                    <span class="mc-label">Revenue Today</span>
+                                    <span class="mc-label">Revenue Today (USD)</span>
                                     <span class="mc-value stripe-color" id="stripe-today-revenue">--</span>
-                                </div>
-                                <div class="line-divider"></div>
-                                <div class="big-col">
-                                    <span class="mc-label">Daily Payments</span>
-                                    <span class="mc-value" id="stripe-today-payments">--</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="metrics-row">
-                        <div class="glass-card feature-panel mini-panel">
-                            <h4>Active Subs</h4>
-                            <p class="big-num swipe-up" id="stripe-active-subs">--</p>
-                        </div>
-                        <div class="glass-card feature-panel mini-panel">
-                            <h4>Net Volume</h4>
-                            <p class="big-num swipe-up" id="stripe-net-volume">--</p>
-                        </div>
-                        <div class="glass-card feature-panel mini-panel">
-                            <h4>Disputes</h4>
-                            <p class="big-num swipe-up" id="stripe-disputes">--</p>
+                    <div class="glass-card feature-panel full-width">
+                        <h3>Profitable Campaigns</h3>
+                        <div class="campaigns-container" id="revenue-campaigns-list">
+                            <div class="campaign-item empty-state">Waiting for campaigns data...</div>
                         </div>
                     </div>
                 </div>
@@ -291,6 +285,42 @@ RETURN STRICTLY AS A JSON OBJECT matching this exact structure:
                 <div class="competitor-grid" id="competitor-container">
                     <!-- Columns injected here -->
                     <div class="glass-card feature-panel empty-state">Waiting for Competitor payload in data.json...</div>
+                </div>
+            </div>
+
+            <!-- ARCHIVED MEMORY VIEW -->
+            <div class="dashboard-content hidden" id="view-archived">
+                <div class="view-header flex-between">
+                    <div>
+                        <h2>Archived Memory</h2>
+                        <p>Past campaigns, competitor strategies & user research</p>
+                    </div>
+                </div>
+                <div class="detailed-layout">
+                    <div class="glass-card feature-panel full-width">
+                        <h3>Tried Ad Strategies & User Research</h3>
+                        <div id="archived-memory-container" style="color:var(--text-secondary); line-height: 1.6;">
+                            Waiting for archived memory data...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TODAY'S TRENDS VIEW -->
+            <div class="dashboard-content hidden" id="view-trends">
+                <div class="view-header flex-between">
+                    <div>
+                        <h2 style="color: #ffaa00;">Today's Trends</h2>
+                        <p>AI + Gaming trending topics & suggested campaign angles</p>
+                    </div>
+                </div>
+                <div class="detailed-layout">
+                    <div class="glass-card feature-panel full-width">
+                        <h3>Trending Topics & Campaign Suggestion</h3>
+                        <div id="trends-container" style="color:var(--text-secondary); line-height: 1.6;">
+                            Waiting for trends data...
+                        </div>
+                    </div>
                 </div>
             </div>
 

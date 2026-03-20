@@ -8,16 +8,23 @@ const cardGads = document.getElementById('card-gads');
 const cardStripe = document.getElementById('card-stripe');
 const cardGenerator = document.getElementById('card-generator');
 const cardCompetitors = document.getElementById('card-competitors');
+const cardArchived = document.getElementById('card-archived');
+const cardTrends = document.getElementById('card-trends');
 
 const viewEmpty = document.getElementById('view-empty');
 const viewGads = document.getElementById('view-gads');
 const viewStripe = document.getElementById('view-stripe');
 const viewGenerator = document.getElementById('view-generator');
 const viewCompetitors = document.getElementById('view-competitors');
+const viewArchived = document.getElementById('view-archived');
+const viewTrends = document.getElementById('view-trends');
 
 // Container Elements
 const genContainer = document.getElementById('generator-container');
 const compContainer = document.getElementById('competitor-container');
+const revCampaignsList = document.getElementById('revenue-campaigns-list');
+const archivedContainer = document.getElementById('archived-memory-container');
+const trendsContainer = document.getElementById('trends-container');
 
 // Element Refs for Data
 const ui = {
@@ -33,16 +40,7 @@ const ui = {
     },
     stripe: {
         todayRevSidebar: document.getElementById('stripe-today-rev-sidebar'),
-        revenue: document.getElementById('stripe-revenue'),
-        todayRevenue: document.getElementById('stripe-today-revenue'),
-        todayPayments: document.getElementById('stripe-today-payments'),
-        latestReceived: document.getElementById('stripe-latest-received'),
-        mrr: document.getElementById('stripe-mrr'),
-        churn: document.getElementById('stripe-churn'),
-        customers: document.getElementById('stripe-customers'),
-        activeSubs: document.getElementById('stripe-active-subs'),
-        netVolume: document.getElementById('stripe-net-volume'),
-        disputes: document.getElementById('stripe-disputes')
+        todayRevenue: document.getElementById('stripe-today-revenue')
     },
     heroTitle: document.getElementById('hero-title'),
     heroSubtitle: document.getElementById('hero-subtitle'),
@@ -57,16 +55,18 @@ let currentJSONData = null;
 // --- VIEW NAVIGATION / TABS ---
 const switchView = (targetViewId) => {
     // Reset all tabs
-    [cardGads, cardStripe, cardGenerator, cardCompetitors].forEach(el => el.classList.remove('selected'));
+    [cardGads, cardStripe, cardGenerator, cardCompetitors, cardArchived, cardTrends].forEach(el => el.classList.remove('selected'));
     
     // Set active tab
     if (targetViewId === 'view-gads') cardGads.classList.add('selected');
     if (targetViewId === 'view-stripe') cardStripe.classList.add('selected');
     if (targetViewId === 'view-generator') cardGenerator.classList.add('selected');
     if (targetViewId === 'view-competitors') cardCompetitors.classList.add('selected');
+    if (targetViewId === 'view-archived') cardArchived.classList.add('selected');
+    if (targetViewId === 'view-trends') cardTrends.classList.add('selected');
 
     // Hide all views
-    [viewEmpty, viewGads, viewStripe, viewGenerator, viewCompetitors].forEach(el => el.classList.add('hidden'));
+    [viewEmpty, viewGads, viewStripe, viewGenerator, viewCompetitors, viewArchived, viewTrends].forEach(el => el.classList.add('hidden'));
 
     setTimeout(() => {
         const target = document.getElementById(targetViewId);
@@ -78,6 +78,8 @@ cardGads.addEventListener('click', () => switchView('view-gads'));
 cardStripe.addEventListener('click', () => switchView('view-stripe'));
 cardGenerator.addEventListener('click', () => switchView('view-generator'));
 cardCompetitors.addEventListener('click', () => switchView('view-competitors'));
+cardArchived.addEventListener('click', () => switchView('view-archived'));
+cardTrends.addEventListener('click', () => switchView('view-trends'));
 
 // --- PROMPT COPYING ---
 const bindPromptBtn = (btnId, textId) => {
@@ -160,21 +162,37 @@ const applyDataToUI = (data) => {
     }
 
     if (data.stripe) {
-        const todayRev = data.stripe.today_revenue || "--";
-        const rev = data.stripe.revenue || "--";
-        updateMetric(ui.stripe.todayRevSidebar, todayRev);
-        updateMetric(ui.stripe.revenue, rev);
-        updateMetric(ui.stripe.todayRevenue, todayRev);
-        updateMetric(ui.stripe.todayPayments, data.stripe.today_payment_count);
-        updateMetric(ui.stripe.latestReceived, data.stripe.latest_received_at);
-        updateMetric(ui.stripe.mrr, data.stripe.mrr);
-        updateMetric(ui.stripe.churn, data.stripe.churn);
-        updateMetric(ui.stripe.customers, data.stripe.customers);
-        updateMetric(ui.stripe.activeSubs, data.stripe.activeSubs || data.stripe.active_subs); 
-        updateMetric(ui.stripe.netVolume, data.stripe.netVolume || data.stripe.net_volume);
-        updateMetric(ui.stripe.disputes, data.stripe.disputes);
+        // We use last 21h enabled campaign revenue for the sidebar
+        const revValue = "$" + (data.stripe.last_21h_enabled_google_campaign_revenue_usd || 0).toFixed(2);
+        updateMetric(ui.stripe.todayRevSidebar, revValue);
+        updateMetric(ui.stripe.todayRevenue, revValue);
+        
         ui.statusStripe.style.boxShadow = "0 0 15px #00f0ff";
         ui.statusStripe.style.backgroundColor = "#00f0ff";
+    }
+
+    if (data.g_ads && data.g_ads.campaigns) {
+        // Filter campaigns with positive revenue
+        const profCamps = data.g_ads.campaigns.filter(c => c.attributed_revenue_last_21h_usd > 0);
+        revCampaignsList.innerHTML = '';
+        if (profCamps.length === 0) {
+            revCampaignsList.innerHTML = '<div class="campaign-item empty-state" style="justify-content:center; color: var(--text-secondary);">No profitable campaigns today.</div>';
+        } else {
+            profCamps.forEach(cmp => {
+                const div = document.createElement('div');
+                div.className = 'campaign-item swipe-up';
+                div.innerHTML = `
+                    <div class="campaign-main">
+                        <span class="campaign-name">${cmp.campaign_name}</span>
+                        <span class="campaign-status" style="color:#00ffaa; border-color:#00ffaa;">PROFIT</span>
+                    </div>
+                    <div class="campaign-metrics">
+                        <div class="c-metric"><span class="c-label">Revenue Generated</span><span class="c-value stripe-color">$${cmp.attributed_revenue_last_21h_usd}</span></div>
+                    </div>
+                `;
+                revCampaignsList.appendChild(div);
+            });
+        }
     }
 
     if (data.generator && Array.isArray(data.generator)) {
@@ -245,6 +263,34 @@ const applyDataToUI = (data) => {
         });
     }
 
+    if (data.archived_memory) {
+        archivedContainer.innerHTML = data.archived_memory;
+    } else {
+        archivedContainer.innerHTML = `No archived items found in data.json under "archived_memory".`;
+    }
+
+    if (data.todays_trends) {
+        let trendsHtml = '';
+        trendsHtml += `<div style="margin-bottom: 1.5rem;">`;
+        if (data.todays_trends.topics) {
+            trendsHtml += `<h4 style="color:#fff; margin-bottom:0.5rem;">🔥 Daily Trending Topics</h4>`;
+            trendsHtml += `<ul style="list-style:disc; margin-left: 1.5rem; margin-bottom: 1rem;">`;
+            data.todays_trends.topics.forEach(t => trendsHtml += `<li>${t}</li>`);
+            trendsHtml += `</ul>`;
+        }
+        if (data.todays_trends.suggested_angle) {
+            trendsHtml += `<h4 style="color:#00ffaa; margin-bottom:0.5rem;">🎯 Suggested Campaign Angle</h4>`;
+            trendsHtml += `<div style="background: rgba(0, 255, 170, 0.05); border: 1px solid rgba(0, 255, 170, 0.2); padding: 1rem; border-radius: 8px;">`;
+            trendsHtml += `<p><strong>Headline:</strong> ${data.todays_trends.suggested_angle.headline}</p>`;
+            trendsHtml += `<p style="margin-top:0.5rem;"><strong>Angle Strategy:</strong> ${data.todays_trends.suggested_angle.description}</p>`;
+            trendsHtml += `</div>`;
+        }
+        trendsHtml += `</div>`;
+        trendsContainer.innerHTML = trendsHtml;
+    } else {
+        trendsContainer.innerHTML = `No trends found in data.json under "todays_trends".`;
+    }
+
     const now = new Date();
     syncStatus.textContent = `Live Telemetry Synced: ${now.toLocaleTimeString()}`;
     syncStatus.style.color = "var(--primary-color)";
@@ -305,7 +351,15 @@ btnMasterPrompt.addEventListener('click', () => {
             platform: "Ad Platform",
             headlines: ["Ad Headline 1", "Ad Headline 2"],
             image_url: "https://placehold.co/600x400"
-        }]
+        }],
+        todays_trends: {
+            topics: ["Trend 1", "Trend 2", "Trend 3"],
+            suggested_angle: {
+                headline: "A catchy headline based on trends",
+                description: "Why this angle works and how to execute it"
+            }
+        },
+        archived_memory: "HTML string containing past campaigns and user research insights."
     };
 
     const rawJson = JSON.stringify(skeleton, null, 2);
@@ -318,10 +372,12 @@ ${rawJson}
 Based on any fresh input, data, or context I provided you above, please do the following:
 1. Update existing metrics inside "g_ads" or "stripe" to reflect my latest exact values (or zero them out if inactive).
 2. Format my "g_ads.campaigns" array based on any active campaigns provided.
-3. Replace the "generator" array with 10 highly-converting Google Ads campaign strategies for Seele AI. Each must exactly include: 15 distinct short headlines, 10 distinct long headlines, 5 descriptions, 50 bulk search themes, and 15 demographic/interests. Provide placeholder image links.
-4. Replace the "competitors" array with intelligence on 3-5 direct competitors in the text-to-3d space, including their specific ad headlines and an image mockup link.
+3. Replace the "generator" array with 10 highly-converting Google Ads campaign strategies for Seele AI.
+4. Replace the "competitors" array with intelligence on 3-5 direct competitors.
+5. Populate "todays_trends" with daily trending topics about AI + gaming relevant to Seele AI, and suggest a creative G ads campaign angle based on it.
+6. Populate "archived_memory" with all already suggested/tried G ads campaigns, competitor ad strategies, and user research from Stripe/Seele admin.
 
-IMPORTANT: You must return ONLY ONE full, valid raw JSON object exactly matching the keys "g_ads", "stripe", "generator", and "competitors". Do not output markdown codeblock wrapping around the JSON, just raw text.`;
+IMPORTANT: You must return ONLY ONE full, valid raw JSON object exactly matching the keys "g_ads", "stripe", "generator", "competitors", "todays_trends", and "archived_memory". Do not output markdown codeblock wrapping around the JSON, just raw text.`;
 
     navigator.clipboard.writeText(masterPrompt).then(() => {
         const ogHTML = btnMasterPrompt.innerHTML;
